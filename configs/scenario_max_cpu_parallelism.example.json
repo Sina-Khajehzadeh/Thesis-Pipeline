@@ -1,0 +1,39 @@
+{
+  "extends": "scenario_no_budget.example.json",
+  "enabled": false,
+  "template_only": false,
+  "experiment_name": "Example_Maximum_Available_CPU_Parallelism",
+  "cpu_parallelism": {
+    "policy": "max_available",
+    "threads": "auto",
+    "prevent_nested_oversubscription": true,
+    "allow_oversubscription": false
+  },
+  "cpu_monitoring": {
+    "enabled": true,
+    "show_console": true,
+    "sampling_interval_seconds": 5,
+    "save_timeseries": true
+  },
+  "models": {
+    "TabPFN": {
+      "execution": {
+        "path": "local",
+        "local_device": "cpu",
+        "require_requested_device": true
+      }
+    },
+    "XGBoost": {
+      "execution": {
+        "device": "cpu",
+        "require_requested_device": true
+      }
+    },
+    "CatBoost": {
+      "execution": {
+        "device": "cpu",
+        "require_requested_device": true
+      }
+    }
+  }
+}

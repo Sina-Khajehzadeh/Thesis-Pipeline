@@ -1,0 +1,160 @@
+{
+  "template_only": true,
+  "experiment_name": "Thesis_Final_Rerun",
+  "iterations": 15,
+  "base_seed": 2025,
+  "sample_sizes": [
+    100,
+    300,
+    "full"
+  ],
+  "data": {
+    "sklearn_dataset": "breast_cancer",
+    "dataset_identifier": "replace_with_thesis_dataset",
+    "target": "target",
+    "group_column": null,
+    "drop_columns": [],
+    "keep_dataframe": true
+  },
+  "dataset_loader": {
+    "module": "dataset_loader",
+    "module_path": null,
+    "required_functions": [
+      "prepare_dataset",
+      "_load_dataframe"
+    ]
+  },
+  "train_frac": 0.8,
+  "inner_validation_frac": 0.2,
+  "sampling": {
+    "strategy": "original_prevalence"
+  },
+  "splitting": {
+    "strategy": "auto",
+    "group_aware": true,
+    "strict": true,
+    "require_groups": false,
+    "candidate_splits": 256,
+    "min_class_count_per_partition": 2,
+    "shuffle_rows_within_partitions": true
+  },
+  "preprocessing": {
+    "mode": "auto",
+    "numeric_imputation": "median",
+    "categorical_imputation_value": "__MISSING__",
+    "categorical_encoding": "onehot",
+    "onehot_min_frequency": null,
+    "onehot_max_categories": null,
+    "max_output_features": null
+  },
+  "optuna": {
+    "direction": "maximize",
+    "max_trials": 50
+  },
+  "budget_reference_model": "TabPFN",
+  "budgeting": {
+    "enabled": true,
+    "mode": "reference_runtime",
+    "cap_untuned_competitors": true,
+    "applies_to": "optuna_tuning_only",
+    "non_tuned_reference_runtime_basis": "reference_execution_runtime",
+    "budgeted_selection_rule": "best_auc_within_budget",
+    "no_budget_selection_rule": "best_auc_all_completed_trials"
+  },
+  "models": {
+    "TabPFN": {
+      "enabled": true,
+      "execution": {
+        "path": "local",
+        "local_device": "cuda",
+        "require_requested_device": true
+      },
+      "local_tabpfn_budget": {
+        "model_version": "V3",
+        "model_path": "auto",
+        "fit_mode": "fit_preprocessors",
+        "n_estimators": 1,
+        "context_strategy": {
+          "strategy": "adaptive",
+          "fraction": 0.2,
+          "fraction_denominator": "total_sample"
+        },
+        "minimum_context_budget_multiplier_enabled": true,
+        "fixed_minimum_context_only": false
+      }
+    },
+    "L-SLR": {
+      "enabled": true
+    },
+    "Augmented_SLR": {
+      "enabled": true
+    },
+    "RandomForest": {
+      "enabled": true
+    },
+    "XGBoost": {
+      "enabled": true,
+      "execution": {
+        "device": "auto",
+        "require_requested_device": false
+      }
+    },
+    "CatBoost": {
+      "enabled": true,
+      "execution": {
+        "device": "auto",
+        "require_requested_device": false
+      }
+    }
+  },
+  "replace_scenarios": true,
+  "scenarios": {},
+  "auxiliary_comparators": [],
+  "cpu_parallelism": {
+    "policy": "max_available",
+    "threads": "auto",
+    "prevent_nested_oversubscription": true,
+    "allow_oversubscription": false,
+    "environment": {}
+  },
+  "cpu_monitoring": {
+    "enabled": true,
+    "show_console": true,
+    "sampling_interval_seconds": 5,
+    "save_timeseries": true
+  },
+  "energy": {
+    "enabled": true,
+    "required": false,
+    "allow_unavailable": true,
+    "tracking_mode": "process",
+    "save_client_side_cloud_energy": true,
+    "save_codecarbon_metadata": true
+  },
+  "outputs": {
+    "root": "./V13_Experiments",
+    "save_fitted_models": false,
+    "save_predictions_parquet": true,
+    "save_predictions_npz": true,
+    "save_group_ids": true,
+    "artifact_index": true
+  },
+  "plots": {
+    "enabled": true,
+    "save_html": true,
+    "save_png": true,
+    "save_svg": true,
+    "show_figures": false,
+    "dpi": 180,
+    "calibration_bins": 10,
+    "runtime_axis_scale": "log",
+    "cross_scenario_runtime_sample": "max",
+    "scenario_roles": {},
+    "plot_specs": []
+  },
+  "execution": {
+    "on_model_error": "continue",
+    "on_iteration_error": "continue",
+    "deterministic_torch": false
+  }
+}

@@ -1,0 +1,81 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Environments and local settings
+.venv/
+venv/
+env/
+.env
+.env.*
+!.env.example
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Editors and operating systems
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Credentials and local service state
+*.pem
+*.key
+credentials.*
+secrets.*
+
+# Confidential or local datasets
+data/
+private_data/
+confidential_data/
+*.csv
+*.tsv
+*.parquet
+*.pq
+*.pkl
+*.pickle
+*.feather
+
+# Experiment outputs and caches
+V14_Experiments/
+V13_Experiments/
+final_rerun/
+Plots and Figures/
+Second_V3_dashboard_source_files/
+results/
+outputs/
+runs/
+checkpoints/
+*.joblib
+*.onnx
+*.pt
+*.pth
+.v13_*_runs/
+.v14_*_runs/
+.v14_*_cache/
+
+# Generated figures and reports
+generated_figures/
+generated_reports/
+
+# Superseded pipeline versions and development history
+former pipelines/
+6-14-2026-tabpfn_budgeted_pipeline_grouped_final_full_version_V12_FIXED.py
+7-24-2026-V13_REPRODUCIBLE_EXPERIMENT_PIPELINE.py
+V12_TO_V13_CHANGELOG.md
+V12_pipeline_deep_technical_report.txt
+V13_FINAL_RERUN.py
+V13_FINAL_RERUN_CHANGELOG.md
+V13_IMPLEMENTATION_VALIDATION.md
+README_V13_REPRODUCIBLE_PIPELINE.md
+README_dynamic_pipeline.md
+experiment_config.py
+run_experiment.py
+tests/test_v13_reproducible_pipeline.py

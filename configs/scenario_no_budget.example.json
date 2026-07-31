@@ -1,0 +1,34 @@
+{
+  "extends": "base_config.example.json",
+  "enabled": false,
+  "template_only": false,
+  "experiment_name": "Thesis_No_Budget_Control",
+  "replace_scenarios": true,
+  "models": {
+    "TabPFN": {
+      "execution": {
+        "path": "local",
+        "local_device": "cuda",
+        "require_requested_device": true
+      }
+    }
+  },
+  "scenarios": {
+    "Any_Name_No_Budget_Control": {
+      "semantic_role": "no_budget_control",
+      "budgeting": {
+        "enabled": false
+      },
+      "budget_reference_model": null,
+      "enabled_models": [
+        "TabPFN",
+        "L-SLR",
+        "Augmented_SLR",
+        "RandomForest",
+        "XGBoost",
+        "CatBoost"
+      ],
+      "model_overrides": {}
+    }
+  }
+}

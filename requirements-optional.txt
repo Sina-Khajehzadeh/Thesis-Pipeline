@@ -1,0 +1,17 @@
+# Install only the packages required by the selected models and outputs.
+xgboost
+catboost
+torch
+tabpfn
+tabpfn-client
+tabpfn-extensions
+codecarbon
+imbalanced-learn
+pyarrow
+plotly
+kaleido
+jupyterlab
+nbformat
+nbclient
+ipykernel
+

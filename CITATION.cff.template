@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the thesis and repository."
+title: "V14 Thesis Pipeline"
+type: software
+authors:
+  - family-names: "REPLACE_WITH_FAMILY_NAME"
+    given-names: "REPLACE_WITH_GIVEN_NAMES"
+version: "14.0"
+date-released: "REPLACE_WITH_YYYY-MM-DD"
+repository-code: "https://github.com/REPLACE_WITH_OWNER/REPLACE_WITH_REPOSITORY"
+license: "REPLACE_WITH_SPDX_LICENSE_IDENTIFIER"
+preferred-citation:
+  type: thesis
+  title: "REPLACE_WITH_THESIS_TITLE"
+  authors:
+    - family-names: "REPLACE_WITH_FAMILY_NAME"
+      given-names: "REPLACE_WITH_GIVEN_NAMES"
+  institution:
+    name: "REPLACE_WITH_UNIVERSITY"
+  year: "REPLACE_WITH_YEAR"

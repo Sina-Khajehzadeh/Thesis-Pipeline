@@ -1,0 +1,29 @@
+{
+  "extends": "scenario_xgboost_budget.example.json",
+  "enabled": false,
+  "template_only": false,
+  "experiment_name": "Example_Adaptive_Context_Local_TabPFN",
+  "models": {
+    "TabPFN": {
+      "execution": {
+        "path": "local",
+        "local_device": "cpu",
+        "require_requested_device": true
+      },
+      "local_tabpfn_budget": {
+        "context_strategy": {
+          "strategy": "adaptive",
+          "fraction": 0.1,
+          "fraction_denominator": "total_sample"
+        },
+        "minimum_context_budget_multiplier_enabled": true
+      }
+    },
+    "XGBoost": {
+      "execution": {
+        "device": "cpu",
+        "require_requested_device": true
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "extends": "base_config.example.json",
+  "enabled": false,
+  "template_only": false,
+  "experiment_name": "Thesis_TabPFN_Cloud_Budget",
+  "replace_scenarios": true,
+  "budget_reference_model": "TabPFN",
+  "models": {
+    "TabPFN": {
+      "execution": {
+        "path": "cloud",
+        "local_device": "auto",
+        "require_requested_device": false
+      },
+      "model_path": "v3_default"
+    }
+  },
+  "scenarios": {
+    "Arbitrary_TabPFN_Budget_Label": {
+      "semantic_role": "tabpfn_runtime_reference",
+      "budgeting": {
+        "enabled": true
+      },
+      "budget_reference_model": "TabPFN",
+      "enabled_models": [
+        "TabPFN",
+        "L-SLR",
+        "Augmented_SLR",
+        "RandomForest",
+        "XGBoost",
+        "CatBoost"
+      ],
+      "model_overrides": {}
+    }
+  }
+}
