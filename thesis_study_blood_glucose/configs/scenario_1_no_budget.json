@@ -1,0 +1,44 @@
+{
+  "extends": "common_config.json",
+  "enabled": true,
+  "template_only": false,
+  "experiment_name": "Thesis_Scenario_1_No_Budget_20MC",
+  "budget_reference_model": null,
+  "budgeting": {
+    "enabled": false
+  },
+  "replace_scenarios": true,
+  "scenarios": {
+    "No_Budgeting": {
+      "semantic_role": "no_budget_control",
+      "budget_reference_model": null,
+      "budgeting_enabled": false,
+      "budgeting": {
+        "enabled": false
+      },
+      "enabled_models": [
+        "TabPFN",
+        "L-SLR",
+        "Augmented_SLR",
+        "RandomForest",
+        "XGBoost",
+        "CatBoost"
+      ],
+      "model_overrides": {
+        "TabPFN": {
+          "model_path": "v3_default",
+          "execution": {
+            "path": "cloud",
+            "local_device": "auto",
+            "require_requested_device": false
+          }
+        }
+      }
+    }
+  },
+  "plots": {
+    "scenario_roles": {
+      "No_Budgeting": "no_budget_control"
+    }
+  }
+}

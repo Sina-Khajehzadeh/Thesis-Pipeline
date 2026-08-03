@@ -1,5 +1,14 @@
 # Changelog
 
+## Blood-glucose thesis study package
+
+- Added one common preparation script for the 13-feature blood-glucose model
+  table without embedded expected dataset hashes.
+- Added a shared 20-iteration configuration and separate no-budget,
+  TabPFN-budget, and XGBoost fixed-0.29-context configurations.
+- Added automated checks for preparation, group integrity, common settings,
+  execution devices, budget references, and scenario-specific rules.
+
 ## V14 repository release
 
 - Established `V14_Thesis_Pipeline.py` as the public thesis pipeline.

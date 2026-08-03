@@ -1,0 +1,187 @@
+{
+  "extends": "../../configs/base_config.example.json",
+  "enabled": false,
+  "template_only": true,
+  "experiment_name": "Thesis_Blood_Glucose_Common_20MC",
+  "iterations": 20,
+  "base_seed": 2025,
+  "sample_sizes": [
+    1000,
+    3000,
+    10000,
+    15000,
+    25000,
+    35000,
+    40000,
+    46000,
+    50000,
+    60000,
+    86000,
+    "full"
+  ],
+  "data": {
+    "sklearn_dataset": null,
+    "source": "thesis_study_blood_glucose/data/prepared_blood_glucose_model_table.pkl",
+    "dataset_identifier": "blood_glucose_management_icu_insulin_events",
+    "target": "y_glucose_normal",
+    "positive_label": 1,
+    "group_column": "SUBJECT_ID",
+    "feature_columns": [
+      "LOS_ICU_days",
+      "first_ICU_stay",
+      "INPUT",
+      "INPUT_HRS",
+      "INFXSTOP",
+      "GLC_AL",
+      "RULE",
+      "INSULINTYPE_Long",
+      "INSULINTYPE_Short",
+      "EVENT_BOLUS_PUSH",
+      "EVENT_INFUSION",
+      "GLCSOURCE_AL_FINGERSTICK",
+      "GLCSOURCE_AL_nan"
+    ],
+    "drop_columns": [],
+    "drop_constant": false,
+    "keep_dataframe": true
+  },
+  "dataset_loader": {
+    "module": "dataset_loader",
+    "module_path": null,
+    "required_functions": [
+      "prepare_dataset",
+      "_load_dataframe"
+    ]
+  },
+  "train_frac": 0.8,
+  "inner_validation_frac": 0.2,
+  "sampling": {
+    "strategy": "original_prevalence"
+  },
+  "splitting": {
+    "strategy": "stratified_group",
+    "group_aware": true,
+    "strict": true,
+    "require_groups": true,
+    "candidate_splits": 256,
+    "min_class_count_per_partition": 2,
+    "low_class_count_warning": 10,
+    "shuffle_rows_within_partitions": true,
+    "max_prevalence_deviation": null,
+    "max_row_fraction_deviation": null
+  },
+  "preprocessing": {
+    "mode": "preprocessed_numeric",
+    "max_output_features": 13
+  },
+  "optuna": {
+    "direction": "maximize",
+    "max_trials": 50
+  },
+  "budget_reference_model": null,
+  "budgeting": {
+    "enabled": false,
+    "mode": "reference_runtime",
+    "cap_untuned_competitors": true,
+    "applies_to": "optuna_tuning_only",
+    "non_tuned_reference_runtime_basis": "reference_execution_runtime",
+    "budgeted_selection_rule": "best_auc_within_budget",
+    "no_budget_selection_rule": "best_auc_all_completed_trials"
+  },
+  "models": {
+    "TabPFN": {
+      "enabled": true,
+      "model_path": "v3_default",
+      "execution": {
+        "path": "cloud",
+        "local_device": "auto",
+        "require_requested_device": false
+      }
+    },
+    "L-SLR": {
+      "enabled": true,
+      "execution": {
+        "device": "cpu",
+        "require_requested_device": true
+      }
+    },
+    "Augmented_SLR": {
+      "enabled": true,
+      "execution": {
+        "device": "cpu",
+        "require_requested_device": true
+      }
+    },
+    "RandomForest": {
+      "enabled": true,
+      "execution": {
+        "device": "cpu",
+        "require_requested_device": true
+      }
+    },
+    "XGBoost": {
+      "enabled": true,
+      "execution": {
+        "device": "cpu",
+        "require_requested_device": true
+      }
+    },
+    "CatBoost": {
+      "enabled": true,
+      "execution": {
+        "device": "cpu",
+        "require_requested_device": true
+      }
+    }
+  },
+  "replace_scenarios": true,
+  "scenarios": {},
+  "auxiliary_comparators": [],
+  "cpu_parallelism": {
+    "policy": "max_available",
+    "threads": "auto",
+    "prevent_nested_oversubscription": true,
+    "allow_oversubscription": false,
+    "environment": {}
+  },
+  "cpu_monitoring": {
+    "enabled": true,
+    "show_console": true,
+    "sampling_interval_seconds": 5,
+    "save_timeseries": true
+  },
+  "energy": {
+    "enabled": true,
+    "required": false,
+    "allow_unavailable": true,
+    "tracking_mode": "process",
+    "save_client_side_cloud_energy": true,
+    "save_codecarbon_metadata": true
+  },
+  "outputs": {
+    "root": "./thesis_study_blood_glucose/results",
+    "save_fitted_models": false,
+    "save_predictions_parquet": true,
+    "save_predictions_npz": true,
+    "save_group_ids": true,
+    "artifact_index": true
+  },
+  "plots": {
+    "enabled": true,
+    "save_html": true,
+    "save_png": true,
+    "save_svg": true,
+    "show_figures": false,
+    "dpi": 180,
+    "calibration_bins": 10,
+    "runtime_axis_scale": "log",
+    "cross_scenario_runtime_sample": "max",
+    "scenario_roles": {},
+    "plot_specs": []
+  },
+  "execution": {
+    "on_model_error": "continue",
+    "on_iteration_error": "continue",
+    "deterministic_torch": false
+  }
+}

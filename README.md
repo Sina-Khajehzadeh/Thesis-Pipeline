@@ -35,6 +35,16 @@ implementation.
    its placeholders.
 5. Run a dry run before fitting any models.
 
+## Submitted blood-glucose thesis study
+
+The exact shared preparation and three scenario configurations used for the
+blood-glucose management study are documented in
+[the study-specific guide](thesis_study_blood_glucose/README.md). These files
+retain 20 iterations, the common 13-feature model table, strict patient-group
+isolation, and the fixed 0.29 TabPFN context used in the XGBoost-referenced
+scenario. The general examples in `configs/` remain available for adapting V14
+to other datasets.
+
 ## Installation
 
 Create a clean Python environment and install the core dependencies:

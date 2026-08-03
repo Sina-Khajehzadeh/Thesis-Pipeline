@@ -1,0 +1,66 @@
+{
+  "extends": "common_config.json",
+  "enabled": true,
+  "template_only": false,
+  "experiment_name": "Thesis_Scenario_2_TabPFN_Runtime_Budget_20MC",
+  "budget_reference_model": "TabPFN",
+  "budgeting": {
+    "enabled": true,
+    "mode": "reference_runtime",
+    "applies_to": "optuna_tuning_only",
+    "non_tuned_reference_runtime_basis": "reference_execution_runtime",
+    "budgeted_selection_rule": "best_auc_within_budget",
+    "no_budget_selection_rule": "best_auc_all_completed_trials"
+  },
+  "replace_scenarios": true,
+  "scenarios": {
+    "TabPFN_Runtime_Budget": {
+      "semantic_role": "tabpfn_runtime_budget",
+      "budget_reference_model": "TabPFN",
+      "budgeting_enabled": true,
+      "budgeting": {
+        "enabled": true,
+        "mode": "reference_runtime",
+        "applies_to": "optuna_tuning_only",
+        "non_tuned_reference_runtime_basis": "reference_execution_runtime",
+        "budgeted_selection_rule": "best_auc_within_budget",
+        "no_budget_selection_rule": "best_auc_all_completed_trials"
+      },
+      "enabled_models": [
+        "TabPFN",
+        "L-SLR",
+        "Augmented_SLR",
+        "RandomForest",
+        "XGBoost",
+        "CatBoost"
+      ],
+      "model_overrides": {
+        "TabPFN": {
+          "model_path": "v3_default",
+          "execution": {
+            "path": "cloud",
+            "local_device": "auto",
+            "require_requested_device": false
+          }
+        },
+        "XGBoost": {
+          "execution": {
+            "device": "cpu",
+            "require_requested_device": true
+          }
+        },
+        "CatBoost": {
+          "execution": {
+            "device": "cpu",
+            "require_requested_device": true
+          }
+        }
+      }
+    }
+  },
+  "plots": {
+    "scenario_roles": {
+      "TabPFN_Runtime_Budget": "tabpfn_runtime_budget"
+    }
+  }
+}
