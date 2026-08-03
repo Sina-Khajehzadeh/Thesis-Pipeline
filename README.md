@@ -28,11 +28,9 @@ implementation.
 1. Read [the pipeline reader guide](V14_Thesis_Pipeline_Reader_Guide.ipynb).
 2. Use [the configuration dictionary](V14_Configuration_Dictionary.ipynb) to
    map a new dataset to JSON fields.
-3. Complete [the dataset dictionary](docs/DATA_DICTIONARY_TEMPLATE.md) to record
-   column roles, outcome coding, and leakage decisions.
-4. Copy
-   [the dataset template](configs/V14_dataset_template.example.json) and replace
-   its placeholders.
+3. For the submitted blood-glucose study, follow
+   [the study-specific guide](thesis_study_blood_glucose/README.md).
+4. Select one of the three study configurations documented in that guide.
 5. Run a dry run before fitting any models.
 
 ## Submitted blood-glucose thesis study
@@ -42,8 +40,9 @@ blood-glucose management study are documented in
 [the study-specific guide](thesis_study_blood_glucose/README.md). These files
 retain 20 iterations, the common 13-feature model table, strict patient-group
 isolation, and the fixed 0.29 TabPFN context used in the XGBoost-referenced
-scenario. The general examples in `configs/` remain available for adapting V14
-to other datasets.
+scenario. The study configurations inherit shared pipeline defaults from
+`configs/base_config.example.json`; all study-specific settings are kept in the
+study folder.
 
 ## Installation
 
@@ -68,8 +67,8 @@ packages required by the selected configuration.
 
 The pipeline accepts CSV, TSV, Parquet, Pickle, Feather, JSON, an in-memory
 `pandas.DataFrame`, or a supported scikit-learn demonstration dataset. The
-following fragments show the fields to change in a copy of the supplied
-template; they are not complete standalone configurations.
+following fragments illustrate the main fields; they are not complete
+standalone configurations.
 
 Ordinary independent rows:
 
@@ -176,16 +175,15 @@ dataset_loader.py                       dataset loading and binary target mappin
 V14_Thesis_Pipeline_Reader_Guide.ipynb  methodological walkthrough
 V14_Configuration_Dictionary.ipynb      field dictionary and adaptation workflow
 docs/V14_CONFIGURATION_DICTIONARY.json  machine-readable field reference
-docs/DATA_DICTIONARY_TEMPLATE.md         study-specific column definition form
-configs/                                inheritance-based JSON examples
+configs/base_config.example.json         shared pipeline defaults
+thesis_study_blood_glucose/              submitted study preparation and scenarios
 requirements-core.txt                   required CPU/runtime packages
 requirements-optional.txt               model/output-specific packages
-tests/                                  automated pipeline tests
+tests/                                  automated software validation checks
 .github/workflows/validate.yml           GitHub validation workflow
 SECURITY.md                              data and credential guidance
 CONTRIBUTING.md                          change and validation expectations
 CHANGELOG.md                              public-version history
-CITATION.cff.template                     citation metadata template
 ```
 
 ## Reproducibility
@@ -211,10 +209,7 @@ The repository contains no embedded API key or token. Credentials for optional
 external services must be supplied through the user's environment and must
 never be committed. See [`SECURITY.md`](SECURITY.md).
 
-## Citation and license
+## Citation
 
-Before public release, complete the citation metadata and select a software
-license. Rename and complete `CITATION.cff.template` as `CITATION.cff`. These
-are owner decisions. Review the
-[publication manifest](docs/PUBLICATION_MANIFEST.md) and
-[release checklist](docs/RELEASE_CHECKLIST.md) before the first commit.
+When citing the software, report the repository URL, pipeline version V14, and
+the exact Git commit used for the analysis.

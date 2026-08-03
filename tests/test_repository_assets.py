@@ -8,22 +8,23 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class RepositoryAssetsTest(unittest.TestCase):
-    def test_json_documents_and_template_parent(self):
-        paths = sorted((ROOT / "configs").glob("*.json"))
-        paths.append(ROOT / "docs" / "V14_CONFIGURATION_DICTIONARY.json")
-        documents = {
-            path: json.loads(path.read_text(encoding="utf-8")) for path in paths
-        }
-
-        template_path = ROOT / "configs" / "V14_dataset_template.example.json"
-        parents = documents[template_path].get("extends", [])
-        if isinstance(parents, str):
-            parents = [parents]
-        for parent in parents:
-            self.assertTrue(
-                (template_path.parent / parent).is_file(),
-                f"Missing template parent: {parent}",
-            )
+    def test_json_documents_and_config_parents(self):
+        paths = [
+            ROOT / "configs" / "base_config.example.json",
+            ROOT / "docs" / "V14_CONFIGURATION_DICTIONARY.json",
+            *sorted((ROOT / "thesis_study_blood_glucose" / "configs").glob("*.json")),
+        ]
+        for path in paths:
+            self.assertTrue(path.is_file(), f"Missing JSON document: {path}")
+            document = json.loads(path.read_text(encoding="utf-8"))
+            parents = document.get("extends", [])
+            if isinstance(parents, str):
+                parents = [parents]
+            for parent in parents:
+                self.assertTrue(
+                    (path.parent / parent).resolve().is_file(),
+                    f"Missing configuration parent: {parent}",
+                )
 
     def test_configuration_dictionary(self):
         path = ROOT / "docs" / "V14_CONFIGURATION_DICTIONARY.json"
