@@ -1,6 +1,6 @@
 {
   "template_only": true,
-  "experiment_name": "Thesis_Final_Rerun",
+  "experiment_name": "V14_Generic_Base_Template",
   "iterations": 15,
   "base_seed": 2025,
   "sample_sizes": [
@@ -132,7 +132,7 @@
     "save_codecarbon_metadata": true
   },
   "outputs": {
-    "root": "./V13_Experiments",
+    "root": "./V14_Experiments",
     "save_fitted_models": false,
     "save_predictions_parquet": true,
     "save_predictions_npz": true,

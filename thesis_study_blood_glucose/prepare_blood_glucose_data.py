@@ -81,7 +81,7 @@ def _attach_next_glucose(
     next_glucose = np.full(len(insulin_times), np.nan, dtype=float)
     next_time = np.full(
         len(insulin_times),
-        np.datetime64("NaT"),
+        np.datetime64("NaT", "ns"),
         dtype="datetime64[ns]",
     )
     next_source = np.full(len(insulin_times), None, dtype=object)
@@ -319,7 +319,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--input",
         required=True,
-        help="Path to LMU_Final_Cleaned_Data.pkl",
+        help=(
+            "Path to the local PhysioNet-derived "
+            "LMU_Final_Cleaned_Data.pkl study extract"
+        ),
     )
     parser.add_argument(
         "--output",

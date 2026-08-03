@@ -9,7 +9,8 @@ software maintenance.
 - State whether the change affects models, search spaces, splitting,
   preprocessing, metrics, runtime budgets, energy accounting, or TabPFN
   context behavior.
-- Add or update a JSON example when configuration behavior changes.
+- Add or update the relevant configuration and field documentation when
+  configuration behavior changes.
 - Do not commit data, credentials, checkpoints, or generated experiment runs.
 
 ## Validation
@@ -32,4 +33,3 @@ Keep pull requests focused. Document:
 - whether scientific behavior changed;
 - the configuration used for testing; and
 - the validation result.
-

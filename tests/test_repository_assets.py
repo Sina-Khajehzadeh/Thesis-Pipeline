@@ -51,14 +51,46 @@ class RepositoryAssetsTest(unittest.TestCase):
             self.assertTrue(required_keys <= set(field), field.get("path"))
 
     def test_readme_local_links(self):
-        text = (ROOT / "README.md").read_text(encoding="utf-8")
-        targets = re.findall(r"(?<!!)\[[^\]]+\]\(([^)]+)\)", text)
-        for target in targets:
-            target = target.strip()
-            if target.startswith(("http://", "https://", "mailto:", "#")):
-                continue
-            local_path = target.split("#", 1)[0]
-            self.assertTrue((ROOT / local_path).exists(), local_path)
+        readmes = [
+            ROOT / "README.md",
+            ROOT / "thesis_study_blood_glucose" / "README.md",
+            ROOT / "thesis_study_blood_glucose" / "DATA_DICTIONARY.md",
+        ]
+        for readme in readmes:
+            text = readme.read_text(encoding="utf-8")
+            targets = re.findall(r"(?<!!)\[[^\]]+\]\(([^)]+)\)", text)
+            for target in targets:
+                target = target.strip()
+                if target.startswith(("http://", "https://", "mailto:", "#")):
+                    continue
+                local_path = target.split("#", 1)[0]
+                self.assertTrue((readme.parent / local_path).exists(), local_path)
+
+    def test_reader_assets_do_not_reference_removed_files(self):
+        removed_names = {
+            "V14_dataset_template.example.json",
+            "scenario_xgboost_budget.example.json",
+            "DATA_DICTIONARY_TEMPLATE.md",
+            "PUBLICATION_MANIFEST.md",
+            "RELEASE_CHECKLIST.md",
+            "CITATION.cff.template",
+        }
+        reader_assets = [
+            ROOT / "README.md",
+            ROOT / "CHANGELOG.md",
+            ROOT / "V14_Thesis_Pipeline_Reader_Guide.ipynb",
+            ROOT / "V14_Configuration_Dictionary.ipynb",
+        ]
+        for asset in reader_assets:
+            text = asset.read_text(encoding="utf-8")
+            for name in removed_names:
+                self.assertNotIn(name, text, f"{asset.name}: {name}")
+
+    def test_workflow_runs_study_validation(self):
+        workflow = (ROOT / ".github" / "workflows" / "validate.yml").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("thesis_study_blood_glucose/tests", workflow)
 
     def test_notebooks_have_no_saved_errors(self):
         for name in [
@@ -77,7 +109,11 @@ class RepositoryAssetsTest(unittest.TestCase):
             self.assertFalse(errors, name)
 
     def test_primary_python_sources_compile(self):
-        for name in ["V14_Thesis_Pipeline.py", "dataset_loader.py"]:
+        for name in [
+            "V14_Thesis_Pipeline.py",
+            "dataset_loader.py",
+            "thesis_study_blood_glucose/prepare_blood_glucose_data.py",
+        ]:
             source = (ROOT / name).read_text(encoding="utf-8")
             compile(source, name, "exec")
 

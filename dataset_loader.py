@@ -1,7 +1,7 @@
 """
 dataset_loader.py
 =================
-Dataset-agnostic front door for the TabPFN-Budgeted pipeline (engine V12).
+Dataset-agnostic front door for the V14 thesis experiment pipeline.
 
 The pipeline ENGINE already works on generic (X, y, groups). This module turns
 ANY tabular dataset into exactly those three objects, driven by a small config

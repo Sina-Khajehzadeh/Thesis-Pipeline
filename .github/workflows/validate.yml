@@ -40,3 +40,6 @@ jobs:
 
       - name: Run V14 self-tests
         run: python V14_Thesis_Pipeline.py --self-test
+
+      - name: Validate blood-glucose preparation and scenarios
+        run: python -m unittest discover -s thesis_study_blood_glucose/tests -p "test_*.py"

@@ -38,11 +38,18 @@ implementation.
 The exact shared preparation and three scenario configurations used for the
 blood-glucose management study are documented in
 [the study-specific guide](thesis_study_blood_glucose/README.md). These files
-retain 20 iterations, the common 13-feature model table, strict patient-group
-isolation, and the fixed 0.29 TabPFN context used in the XGBoost-referenced
-scenario. The study configurations inherit shared pipeline defaults from
-`configs/base_config.example.json`; all study-specific settings are kept in the
-study folder.
+set a standardized rerun target of 20 iterations, use the common 13-feature
+model table, enforce strict patient-group isolation, and retain the fixed 0.29
+TabPFN context used in the XGBoost-referenced scenario. The study
+configurations inherit from the generic template
+`configs/base_config.example.json`, but override its illustrative iteration,
+data, device, budgeting, and output values. All authoritative study settings
+are kept in the study folder.
+
+The repository contains code and configurations, not the protected dataset or
+the thesis result tables. A rerun can reproduce the design and audit trail;
+runtime and energy values can differ with hardware, package versions, and
+remote-service conditions.
 
 ## Installation
 
@@ -62,6 +69,18 @@ pip install -r requirements-core.txt
 Optional models and output formats are listed in
 [`requirements-optional.txt`](requirements-optional.txt). Install only the
 packages required by the selected configuration.
+
+To run all three blood-glucose scenarios, install both requirement files:
+
+```powershell
+pip install -r requirements-core.txt
+pip install -r requirements-optional.txt
+```
+
+The requirement files describe the supported package set rather than an exact
+historical lock. Definitive runs should retain the package versions written to
+their environment manifest. The cloud/client TabPFN scenarios additionally
+depend on service availability and the model version supplied by that service.
 
 ## Dataset configuration
 
@@ -175,8 +194,9 @@ dataset_loader.py                       dataset loading and binary target mappin
 V14_Thesis_Pipeline_Reader_Guide.ipynb  methodological walkthrough
 V14_Configuration_Dictionary.ipynb      field dictionary and adaptation workflow
 docs/V14_CONFIGURATION_DICTIONARY.json  machine-readable field reference
-configs/base_config.example.json         shared pipeline defaults
+configs/base_config.example.json         generic template; not a thesis scenario
 thesis_study_blood_glucose/              submitted study preparation and scenarios
+thesis_study_blood_glucose/DATA_DICTIONARY.md  study variables and encodings
 requirements-core.txt                   required CPU/runtime packages
 requirements-optional.txt               model/output-specific packages
 tests/                                  automated software validation checks
@@ -202,6 +222,10 @@ Every definitive run should retain:
 
 The tuned-reference HPO budget and total model runtime are separate quantities.
 See the reader guide before interpreting runtime comparisons.
+
+The three study JSON files request 20 Monte Carlo iterations. This is the
+standardized rerun target and should not be interpreted as a claim that every
+historical setting completed 20 iterations in the originally submitted runs.
 
 ## Security and credentials
 
