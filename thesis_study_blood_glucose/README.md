@@ -15,10 +15,30 @@ All three scenarios use one prepared table with:
 - `SUBJECT_ID` as the patient-group variable; and
 - the same 13 encoded numeric predictors, in a fixed order.
 
-The raw PhysioNet/MIMIC-derived data and generated model table are not included
-in the repository. The preparation script does not require a pre-recorded
-dataset hash. V14 records run-specific fingerprints in its generated audit
-manifest without embedding a fixed expected fingerprint in this study code.
+The source PhysioNet data and generated model table are not included in the
+repository. The preparation script does not require a pre-recorded dataset
+hash. V14 records run-specific fingerprints in its generated audit manifest
+without embedding a fixed expected fingerprint in this study code.
+
+## Data source and citation
+
+The study is based on *Curated Data for Describing Blood Glucose Management in
+the Intensive Care Unit* (version 1.0.1), available through PhysioNet and
+derived from MIMIC-III version 1.4. Access must be obtained directly from
+PhysioNet and remains subject to its credentialing and data-use requirements.
+This repository does not redistribute the source data.
+
+Please cite the dataset and its accompanying data descriptor:
+
+- Robles Arévalo A, Mateo-Collado R, Celi LA. *Curated Data for Describing
+  Blood Glucose Management in the Intensive Care Unit* (version 1.0.1)
+  [dataset]. PhysioNet; 2021.
+  [https://doi.org/10.13026/517s-2q57](https://doi.org/10.13026/517s-2q57)
+- Robles Arévalo A, Maley JH, Baker L, da Silva Vieira SM, da Costa Sousa JM,
+  Finkelstein S, et al. Data-driven curation process for describing the blood
+  glucose management in the intensive care unit. *Scientific Data*.
+  2021;8:80.
+  [https://doi.org/10.1038/s41597-021-00864-4](https://doi.org/10.1038/s41597-021-00864-4)
 
 ## Prepare the model table
 
