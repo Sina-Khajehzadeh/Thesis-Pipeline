@@ -9,10 +9,7 @@
     "temporal_data": "Use temporal splitting when chronological order defines the test partition.",
     "outside_scope": [
       "multiclass classification",
-      "regression",
-      "survival analysis",
-      "unstructured image pipelines",
-      "text generation"
+      "regression"
     ]
   },
   "decision_rules": [
