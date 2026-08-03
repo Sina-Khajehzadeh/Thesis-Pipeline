@@ -11,7 +11,6 @@ class RepositoryAssetsTest(unittest.TestCase):
     def test_json_documents_and_config_parents(self):
         paths = [
             ROOT / "configs" / "base_config.example.json",
-            ROOT / "docs" / "V14_CONFIGURATION_DICTIONARY.json",
             *sorted((ROOT / "thesis_study_blood_glucose" / "configs").glob("*.json")),
         ]
         for path in paths:
@@ -25,30 +24,6 @@ class RepositoryAssetsTest(unittest.TestCase):
                     (path.parent / parent).resolve().is_file(),
                     f"Missing configuration parent: {parent}",
                 )
-
-    def test_configuration_dictionary(self):
-        path = ROOT / "docs" / "V14_CONFIGURATION_DICTIONARY.json"
-        dictionary = json.loads(path.read_text(encoding="utf-8"))
-        self.assertEqual(dictionary["pipeline_version"], "V14")
-
-        fields = [
-            field
-            for section in dictionary["sections"]
-            for field in section["fields"]
-        ]
-        paths = [field["path"] for field in fields]
-        self.assertEqual(len(paths), len(set(paths)))
-        required_keys = {
-            "path",
-            "type",
-            "required",
-            "default",
-            "allowed",
-            "description",
-            "example",
-        }
-        for field in fields:
-            self.assertTrue(required_keys <= set(field), field.get("path"))
 
     def test_readme_local_links(self):
         readmes = [
@@ -74,12 +49,15 @@ class RepositoryAssetsTest(unittest.TestCase):
             "PUBLICATION_MANIFEST.md",
             "RELEASE_CHECKLIST.md",
             "CITATION.cff.template",
+            "V14_Configuration_Dictionary.ipynb",
+            "V14_CONFIGURATION_DICTIONARY.json",
+            "CHANGELOG.md",
+            "CONTRIBUTING.md",
         }
         reader_assets = [
             ROOT / "README.md",
-            ROOT / "CHANGELOG.md",
             ROOT / "V14_Thesis_Pipeline_Reader_Guide.ipynb",
-            ROOT / "V14_Configuration_Dictionary.ipynb",
+            ROOT / "thesis_study_blood_glucose" / "README.md",
         ]
         for asset in reader_assets:
             text = asset.read_text(encoding="utf-8")
@@ -93,10 +71,7 @@ class RepositoryAssetsTest(unittest.TestCase):
         self.assertIn("thesis_study_blood_glucose/tests", workflow)
 
     def test_notebooks_have_no_saved_errors(self):
-        for name in [
-            "V14_Thesis_Pipeline_Reader_Guide.ipynb",
-            "V14_Configuration_Dictionary.ipynb",
-        ]:
+        for name in ["V14_Thesis_Pipeline_Reader_Guide.ipynb"]:
             notebook = json.loads((ROOT / name).read_text(encoding="utf-8"))
             self.assertEqual(notebook["nbformat"], 4)
             errors = [

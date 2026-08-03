@@ -26,8 +26,8 @@ implementation.
 ## Start here
 
 1. Read [the pipeline reader guide](V14_Thesis_Pipeline_Reader_Guide.ipynb).
-2. Use [the configuration dictionary](V14_Configuration_Dictionary.ipynb) to
-   map a new dataset to JSON fields.
+2. For a new dataset, begin with
+   [`configs/base_config.example.json`](configs/base_config.example.json).
 3. For the submitted blood-glucose study, follow
    [the study-specific guide](thesis_study_blood_glucose/README.md).
 4. Select one of the three study configurations documented in that guide.
@@ -192,8 +192,6 @@ python V14_Thesis_Pipeline.py --regenerate-plots --run-dir path/to/run
 V14_Thesis_Pipeline.py                  main command-line pipeline
 dataset_loader.py                       dataset loading and binary target mapping
 V14_Thesis_Pipeline_Reader_Guide.ipynb  methodological walkthrough
-V14_Configuration_Dictionary.ipynb      field dictionary and adaptation workflow
-docs/V14_CONFIGURATION_DICTIONARY.json  machine-readable field reference
 configs/base_config.example.json         generic template; not a thesis scenario
 thesis_study_blood_glucose/              submitted study preparation and scenarios
 thesis_study_blood_glucose/DATA_DICTIONARY.md  study variables and encodings
@@ -202,8 +200,6 @@ requirements-optional.txt               model/output-specific packages
 tests/                                  automated software validation checks
 .github/workflows/validate.yml           GitHub validation workflow
 SECURITY.md                              data and credential guidance
-CONTRIBUTING.md                          change and validation expectations
-CHANGELOG.md                              public-version history
 ```
 
 ## Reproducibility
